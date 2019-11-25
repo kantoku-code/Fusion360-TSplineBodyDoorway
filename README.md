@@ -8,22 +8,35 @@ Import / export TSplineBody.
 Please follow the instructions [here](https://knowledge.autodesk.com/support/fusion-360/troubleshooting/caas/sfdcarticles/sfdcarticles/How-to-install-an-ADD-IN-and-Script-in-Fusion-360.html).
 
 ### Usage - import:
-1. Start Add-in.
 <img src="./resources/tool_utility_eng.png">
+
+1. Start Add-in.
+
 1. Click 'TSpline Body Import' in the Utility panel.
+
 1. Select the tsm file to import from the file open dialog. 
+
 1. Imported into the root component, the file name and body name will be the same.
 
+
 ### Usage - export:
+
 1. Start Add-in.
-<img src="./resources/tool_utility_eng.png">
+
 1. Click 'TSpline Body Export' in the Utility panel.
+
 1. A dialog will appear, showing a list that can be exported.
+
  The displayed name is ＜Body name＞:＜Feature name＞:＜Component name＞.
+
 1. Check the body to export and press the OK button.
+
 1. Select the export destination folder in the dialog.
+
 1. Exported for each body.
+
     The file name is ＜body name＞_＜future name＞_＜component name＞.tsm.
+
 
 ### Action:
 Confirmed in the following environment.
@@ -40,6 +53,7 @@ MIT
 
 ***
 以下、日本語です。
+
 これは、オートデスクソフトウェア「Fusion360」のアドインです。
 
 TSplineBodyをインポート/エクスポートを提供します。
@@ -49,21 +63,32 @@ TSplineBodyをインポート/エクスポートを提供します。
 [こちら](https://knowledge.autodesk.com/ja/support/fusion-360/troubleshooting/caas/sfdcarticles/sfdcarticles/JPN/How-to-install-an-ADD-IN-and-Script-in-Fusion-360.html)の手順に従ってください。
 
 ### 使用法 - インポート:
-1. アドインを起動。
 <img src="./resources/tool_utility_jpn.png">
+
+1. アドインを起動。
+
 1. ユーティリティパネルの 'TSpline Body Import' をクリック。
+
 1. ファイルを開くダイアログからインポートするtsmファイルを選択します。
+
 1. ルートコンポーネントにファイル名と同じ名前で、ボディがインポートされます。
+
 
 ### 使用法 - エクスポート:
 1. アドインを起動。
-<img src="./resources/tool_utility_jpn.png">
+
 1. ユーティリティパネルの 'TSpline Body Export' をクリック。
+
 1. ダイアログが表示され、エクスポート可能なリストが表示されます。
+
   表示される名称は　<ボディ名>:<フューチャー名>:<コンポーネント名>　です。
+
 1. 任意のボディにチェックを入れ、OKボタンを押します。
+
 1. エクスポート先のフォルダを、ダイアログで選択します。
+
 1. ボディ毎にエクスポートされます。
+
 　ファイル名は　<ボディ名>_<フューチャー名>_<コンポーネント名>.tsm　です。
 
 ### アクション:
