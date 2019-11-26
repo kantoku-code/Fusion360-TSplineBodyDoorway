@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyImport Ver0.0.1
+#FusionAPI_python TSplineBodyImport Ver0.0.2
 #Author-kantoku
 #Description-import Tsm files
 
@@ -10,15 +10,6 @@ import os
 class TSplineBodyImport(Fusion360CommandBase):
 
     _lMsg = None
-
-    def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
-        pass
-
-    def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, reason, input_values):
-        pass
-
-    def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, changed_input, input_values):
-        pass
 
     def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
         ao = None
