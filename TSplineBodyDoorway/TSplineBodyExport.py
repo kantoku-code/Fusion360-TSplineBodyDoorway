@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyExport Ver0.0.1
+#FusionAPI_python TSplineBodyExport Ver0.0.2
 #Author-kantoku
 #Description-export Tsm files
 
@@ -12,15 +12,6 @@ class TSplineBodyExport(Fusion360CommandBase):
     _tBodies = None
     _check_id_header: str = 'check'
     _lMsg = None
-
-    # def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
-    #     pass
-
-    # def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, reason, input_values):
-    #     pass
-
-    # def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, changed_input, input_values):
-    #     pass
 
     def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
         ao = None
@@ -61,13 +52,11 @@ class TSplineBodyExport(Fusion360CommandBase):
 
         ao = AppObjects()
 
-        #Dialog
-        inputs.command.setDialogInitialSize(500,800)
-
         #Table
-        tbl = inputs.addTableCommandInput('table', 'Table', 0, '1:10')
-        tbl.hasGrid = True
-
+        tbl = inputs.addTableCommandInput('table', 'Table', 0, '1:10:3:3')
+        tbl.hasGrid = False
+        tbl.maximumVisibleRows = 20
+        
         for idx, tb in enumerate(self._tBodies.getBodies()):
             tbl.addCommandInput(
                 inputs.addBoolValueInput(
@@ -80,12 +69,33 @@ class TSplineBodyExport(Fusion360CommandBase):
 
             tbl.addCommandInput(
                 inputs.addTextBoxCommandInput(
-                    'info{}'.format(idx), 
-                    'tbodyinfo',
-                    tb.info, 
+                    'info1{}'.format(idx), 
+                    'tbodyinfo1',
+                    tb.info1, 
                     1, 
                     True),
                 idx, 1)
+
+            tbl.addCommandInput(
+                inputs.addTextBoxCommandInput(
+                    'info2{}'.format(idx), 
+                    'tbodyinfo2',
+                    tb.info2, 
+                    1, 
+                    True),
+                idx, 2)
+
+            tbl.addCommandInput(
+                inputs.addTextBoxCommandInput(
+                    'info3{}'.format(idx), 
+                    'tbodyinfo3',
+                    tb.info3, 
+                    1, 
+                    True),
+                idx, 3)
+        
+        #Dialog
+        inputs.command.setDialogInitialSize(500,800)
 
 # -- Support functions --
     def getTSplineBodyList(self):
@@ -131,7 +141,7 @@ class TSplineBodyExport(Fusion360CommandBase):
 
 # -- Support class --
 class TBodyContainer(object):
-    def __init__(self, lst: list()):
+    def __init__(self, lst :list()):
         if len(lst) < 1: return
 
         super().__init__()
@@ -139,7 +149,11 @@ class TBodyContainer(object):
         for tb in self.tBodies:
             fFeat: adsk.fusion.FormFeature = tb.parentFormFeature
             comp : adsk.fusion.Component = fFeat.parentComponent
-            tb.info = '{0:<15}: {1:<15}: {2:<15}'.format(tb.name,fFeat.name,comp.name)
+            # tb.info1 = '{0:<30}'.format(tb.name)
+            # tb.info2 = ':{0:<15}: {1:<15}'.format(fFeat.name,comp.name)
+            tb.info1 = '{0:<30}'.format(tb.name)
+            tb.info2 = ':{0:<30}'.format(fFeat.name)
+            tb.info3 = ':{0:<30}'.format(comp.name)
 
             tb.filename = r'{}_{}_{}.tsm'.format(tb.name,fFeat.name,comp.name)
 
