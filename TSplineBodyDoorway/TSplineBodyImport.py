@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyImport Ver0.0.2
+#FusionAPI_python TSplineBodyImport Ver0.0.3
 #Author-kantoku
 #Description-import Tsm files
 
@@ -10,11 +10,17 @@ import os
 class TSplineBodyImport(Fusion360CommandBase):
 
     _lMsg = None
+    def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, reason, input_values):
+        pass
 
     def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
         ao = None
         try:
             ao = AppObjects()
+
+            if ao.design.designType == adsk.fusion.DesignTypes.DirectDesignType:
+                ao.ui.messageBox(self._lMsg.msg('err_desType'))
+                return
 
             files: list()  = self.select_File(ao.ui)
             if len(files) < 1: return
@@ -34,7 +40,6 @@ class TSplineBodyImport(Fusion360CommandBase):
                     basename = os.path.basename(path)
                     base, ext = os.path.splitext(basename)
                     tb.name = os.path.basename(base)
-                    # tb.name = os.path.basename(path)
                 except:
                     errLst.append(path)
                 finally:
@@ -97,7 +102,10 @@ class LangMsg(Fusion360CommandBase):
     def __setDict__(self):
         self._msgDict = {
             'dlg_title': ('インポートファイル選択', 'select import files'),
-            'dlg_filter': ('Tsmファイル(*.tsm)', 'Tsm File(*.tsm)s')
+            'dlg_filter': ('Tsmファイル(*.tsm)', 'Tsm File(*.tsm)s'),
+            'err_desType': (
+                    'パラメトリックモード(履歴をキャプチャ)のみ対応です',
+                    'Only parametric mode is supported')
         }
 
     def msg(self, key :str) -> str:

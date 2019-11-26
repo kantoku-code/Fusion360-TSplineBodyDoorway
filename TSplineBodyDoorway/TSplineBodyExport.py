@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyExport Ver0.0.2
+#FusionAPI_python TSplineBodyExport Ver0.0.3
 #Author-kantoku
 #Description-export Tsm files
 
@@ -51,6 +51,9 @@ class TSplineBodyExport(Fusion360CommandBase):
         if self._tBodies is None: return
 
         ao = AppObjects()
+        if ao.design.designType == adsk.fusion.DesignTypes.DirectDesignType:
+            ao.ui.messageBox(self._lMsg.msg('err_desType'))
+            return
 
         #Table
         tbl = inputs.addTableCommandInput('table', 'Table', 0, '1:10:3:3')
@@ -101,6 +104,11 @@ class TSplineBodyExport(Fusion360CommandBase):
     def getTSplineBodyList(self):
 
         ao = AppObjects()
+
+        if ao.design.designType == adsk.fusion.DesignTypes.DirectDesignType:
+            ao.ui.messageBox(self._lMsg.msg('err_desType'))
+            return None
+
         forms = [comp.features.formFeatures for comp in ao.design.allComponents]
         fmLst = []
         for fs in forms:
@@ -185,7 +193,12 @@ class LangMsg(Fusion360CommandBase):
     def __setDict__(self):
         self._msgDict = {
             'dlg_title': ('エクスポートフォルダ選択', 'select export folder'),
-            'err_nonform': ('エクスポートするTスプラインボディがありません!', 'There are no TSplineBody to export!')
+            'err_nonform': (
+                'エクスポートするTスプラインボディがありません!', 
+                'There are no TSplineBody to export!'),
+            'err_desType': (
+                'パラメトリックモード(履歴をキャプチャ)のみ対応です',
+                'Only parametric mode is supported')
         }
 
     def msg(self, key :str) -> str:
