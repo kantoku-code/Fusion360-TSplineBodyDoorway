@@ -43,6 +43,9 @@ Confirmed in the following environment.
 + Fusion360 Ver2.0.6670
 + Windows10 64bit Pro , Home
 
+### Issues:
++ When exporting, more than 20 items are not displayed.
+
 ### License:
 MIT
 
@@ -95,6 +98,9 @@ TSplineBodyをインポート/エクスポートを提供します。
 以下の環境で確認しています。
  + Fusion360 Ver2.0.6670
  + Windows10 64bit Pro , Home
+
+### 残された問題:
++ エクスポート時、20個以降の項目が表示されません。
 
 ### ライセンス:
 MIT
