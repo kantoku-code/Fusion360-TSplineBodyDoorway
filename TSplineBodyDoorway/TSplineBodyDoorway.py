@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyDoorway Ver0.0.1
+#FusionAPI_python TSplineBodyDoorway Ver0.0.2
 #Author-kantoku
 #Description-import Tsm files
 
@@ -6,47 +6,53 @@
 #https://github.com/tapnair/Fusion360AddinSkeleton
 #Special thanks:Patrick Rainsberry
 
+import adsk.core
+from .Fusion360Utilities.Fusion360CommandBase import Fusion360CommandBase
+from .Fusion360Utilities.Fusion360Utilities import AppObjects
 from .TSplineBodyImport import TSplineBodyImport
 from .TSplineBodyExport import TSplineBodyExport
 
 commands = []
 command_definitions = []
 
-# Import
-cmd = {
-    'cmd_name': 'TSpline Body Import',
-    'cmd_description': 'Import Tsm file (T-spline body)',
-    'cmd_id': 'tBodyImport',
-    'cmd_resources': './resources/import',
-    'workspace': 'FusionSolidEnvironment',
-    'toolbar_panel_id': 'UtilityPanel',
-    'class': TSplineBodyImport
-}
-command_definitions.append(cmd)
-
-# Export
-cmd = {
-    'cmd_name': 'TSpline Body Export',
-    'cmd_description': 'Export Form (T-spline body)',
-    'cmd_id': 'tBodyExport',
-    'cmd_resources': './resources/export',
-    'workspace': 'FusionSolidEnvironment',
-    'toolbar_panel_id': 'UtilityPanel',
-    'class': TSplineBodyExport
-}
-command_definitions.append(cmd)
-
 # Set to True to display various useful messages when debugging your app
 debug = False
-# Don't change anything below here:
-for cmd_def in command_definitions:
-    command = cmd_def['class'](cmd_def, debug)
-    commands.append(command)
-
 
 def run(context):
-    for run_command in commands:
-        run_command.on_run()
+    lMsg = LangMsg()
+
+    # Import
+    cmd = {
+        'cmd_name': 'TSpline Body Import',
+        'cmd_description': lMsg.msg('import_cmd_description'),
+        'cmd_id': 'tBodyImport',
+        'cmd_resources': './resources/import',
+        'workspace': 'FusionSolidEnvironment',
+        'toolbar_panel_id': 'UtilityPanel',
+        'class': TSplineBodyImport
+    }
+    command_definitions.append(cmd)
+
+    # Export
+    cmd = {
+        'cmd_name': 'TSpline Body Export',
+        'cmd_description': lMsg.msg('export_cmd_description'),
+        'cmd_id': 'tBodyExport',
+        'cmd_resources': './resources/export',
+        'workspace': 'FusionSolidEnvironment',
+        'toolbar_panel_id': 'UtilityPanel',
+        'class': TSplineBodyExport
+    }
+    command_definitions.append(cmd)
+
+    # Don't change anything below here:
+    for cmd_def in command_definitions:
+        command = cmd_def['class'](cmd_def, debug)
+        commands.append(command)
+
+
+        for run_command in commands:
+            run_command.on_run()
 
 
 def stop(context):
