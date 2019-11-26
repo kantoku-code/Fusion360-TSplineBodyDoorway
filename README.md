@@ -45,6 +45,7 @@ Confirmed in the following environment.
 
 ### Issues:
 + When exporting, more than 20 items are not displayed.
++ Software crashes in direct mode.
 
 ### License:
 MIT
@@ -101,6 +102,7 @@ TSplineBodyをインポート/エクスポートを提供します。
 
 ### 残された問題:
 + エクスポート時、20個以降の項目が表示されません。
++ ダイレクトモード時、ソフトウエアがクラッシュします。
 
 ### ライセンス:
 MIT
