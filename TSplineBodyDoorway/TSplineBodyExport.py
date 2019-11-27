@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyExport Ver0.0.3
+#FusionAPI_python TSplineBodyExport Ver0.0.4
 #Author-kantoku
 #Description-export Tsm files
 
@@ -23,7 +23,7 @@ class TSplineBodyExport(Fusion360CommandBase):
             ao = AppObjects()
             path :str  = self.select_Folder(ao.ui)
             if len(path) < 1: return
-            path = path.replace('/','\\')
+            path = path.replace('/','\\')#MACは上手くいかんかも…
 
             tbs = self._tBodies.getBodies(onChecks)
             errLst :list() = []
@@ -50,55 +50,53 @@ class TSplineBodyExport(Fusion360CommandBase):
         self._tBodies = self.getTSplineBodyList()
         if self._tBodies is None: return
 
-        ao = AppObjects()
-        if ao.design.designType == adsk.fusion.DesignTypes.DirectDesignType:
-            ao.ui.messageBox(self._lMsg.msg('err_desType'))
-            return
+        #group
+        group = inputs.addGroupCommandInput('group', self._lMsg.msg('group_title'))
+        group.isExpanded = True
+        group.isEnabledCheckBoxDisplayed = False
+        groupInputs = group.children
 
         #Table
-        tbl = inputs.addTableCommandInput('table', 'Table', 0, '1:10:3:3')
+        rowCount = len(self._tBodies.getBodies())
+
+        tblStyle = adsk.core.TablePresentationStyles
+        tbl = groupInputs.addTableCommandInput('table', 'Table', 0, '1:10:3:3')
         tbl.hasGrid = False
-        tbl.maximumVisibleRows = 20
-        
+        tbl.tablePresentationStyle = tblStyle.itemBorderTablePresentationStyle
+        tbl.maximumVisibleRows = rowCount if rowCount < 15 else 15
+
         for idx, tb in enumerate(self._tBodies.getBodies()):
-            tbl.addCommandInput(
-                inputs.addBoolValueInput(
-                    self._check_id_header + '{}'.format(idx), 
-                    'Checkbox', 
-                    True, 
-                    '', 
-                    False),
-                idx, 0)
+            chk = groupInputs.addBoolValueInput(
+                self._check_id_header + '{}'.format(idx), 
+                'Checkbox', 
+                True, 
+                '', 
+                False)
+            tbl.addCommandInput(chk, idx, 0)
 
-            tbl.addCommandInput(
-                inputs.addTextBoxCommandInput(
-                    'info1{}'.format(idx), 
-                    'tbodyinfo1',
-                    tb.info1, 
-                    1, 
-                    True),
-                idx, 1)
+            info1 = groupInputs.addStringValueInput(
+                'info1{}'.format(idx),
+                'tbodyinfo1',
+                tb.info1)
+            info1.isReadOnly = True
+            tbl.addCommandInput(info1, idx, 1)
 
-            tbl.addCommandInput(
-                inputs.addTextBoxCommandInput(
-                    'info2{}'.format(idx), 
-                    'tbodyinfo2',
-                    tb.info2, 
-                    1, 
-                    True),
-                idx, 2)
+            info2 = groupInputs.addStringValueInput(
+                'info2{}'.format(idx),
+                'tbodyinfo2',
+                tb.info2)
+            info2.isReadOnly = True
+            tbl.addCommandInput(info2, idx, 2)
 
-            tbl.addCommandInput(
-                inputs.addTextBoxCommandInput(
-                    'info3{}'.format(idx), 
-                    'tbodyinfo3',
-                    tb.info3, 
-                    1, 
-                    True),
-                idx, 3)
+            info3 = groupInputs.addStringValueInput(
+                'info2{}'.format(idx),
+                'tbodyinfo3',
+                tb.info3)
+            info3.isReadOnly = True
+            tbl.addCommandInput(info3, idx, 3)
         
         #Dialog
-        inputs.command.setDialogInitialSize(500,800)
+        inputs.command.setDialogInitialSize(500,200)
 
 # -- Support functions --
     def getTSplineBodyList(self):
@@ -157,11 +155,9 @@ class TBodyContainer(object):
         for tb in self.tBodies:
             fFeat: adsk.fusion.FormFeature = tb.parentFormFeature
             comp : adsk.fusion.Component = fFeat.parentComponent
-            # tb.info1 = '{0:<30}'.format(tb.name)
-            # tb.info2 = ':{0:<15}: {1:<15}'.format(fFeat.name,comp.name)
             tb.info1 = '{0:<30}'.format(tb.name)
-            tb.info2 = ':{0:<30}'.format(fFeat.name)
-            tb.info3 = ':{0:<30}'.format(comp.name)
+            tb.info2 = ':{0:<20}'.format(fFeat.name)
+            tb.info3 = ':{0:<20}'.format(comp.name)
 
             tb.filename = r'{}_{}_{}.tsm'.format(tb.name,fFeat.name,comp.name)
 
@@ -198,7 +194,8 @@ class LangMsg(Fusion360CommandBase):
                 'There are no TSplineBody to export!'),
             'err_desType': (
                 'パラメトリックモード(履歴をキャプチャ)のみ対応です',
-                'Only parametric mode is supported')
+                'Only parametric mode is supported'),
+            'group_title': ('Tスプラインボディ リスト', 'TSplineBody List'),
         }
 
     def msg(self, key :str) -> str:
