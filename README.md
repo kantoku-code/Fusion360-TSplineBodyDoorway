@@ -44,7 +44,7 @@ Confirmed in the following environment.
 + Windows10 64bit Pro , Home
 
 ### Issues:
-+ When exporting, more than 20 items are not displayed.
+Mac operation, unconfirmed
 
 ### License:
 MIT
@@ -100,7 +100,7 @@ TSplineBodyをインポート/エクスポートを提供します。
  + Windows10 64bit Pro , Home
 
 ### 残された問題:
-+ エクスポート時、20個以降の項目が表示されません。
++ Macでの動作、未確認
 
 ### ライセンス:
 MIT
