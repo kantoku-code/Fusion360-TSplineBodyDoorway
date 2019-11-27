@@ -1,5 +1,8 @@
 # Change of Fusion360_TSplineBody_Doorway
 
+## 0.0.4
++ Improved table display during export.
+
 ## 0.0.3
 + Direct mode is not supported and blocked.
 
