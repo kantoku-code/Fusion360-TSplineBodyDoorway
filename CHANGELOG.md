@@ -1,6 +1,9 @@
 # Change of Fusion360_TSplineBody_Doorway
 
-## 0.0.4
+## 0.0.5 -export only
++ Bug fix on export table display.
+
+## 0.0.4 -export only
 + Improved table display during export.
 
 ## 0.0.3
