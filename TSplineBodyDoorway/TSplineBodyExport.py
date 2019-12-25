@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyExport Ver0.0.4
+#FusionAPI_python TSplineBodyExport Ver0.0.5
 #Author-kantoku
 #Description-export Tsm files
 
@@ -63,7 +63,10 @@ class TSplineBodyExport(Fusion360CommandBase):
         tbl = groupInputs.addTableCommandInput('table', 'Table', 0, '1:10:3:3')
         tbl.hasGrid = False
         tbl.tablePresentationStyle = tblStyle.itemBorderTablePresentationStyle
-        tbl.maximumVisibleRows = rowCount if rowCount < 15 else 15
+        if rowCount > 10:
+            tbl.maximumVisibleRows = 10
+        elif rowCount > 4:
+            tbl.maximumVisibleRows = rowCount
 
         for idx, tb in enumerate(self._tBodies.getBodies()):
             chk = groupInputs.addBoolValueInput(
