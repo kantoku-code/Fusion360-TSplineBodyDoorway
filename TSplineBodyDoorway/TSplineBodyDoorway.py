@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyDoorway Ver0.0.2
+#FusionAPI_python TSplineBodyDoorway
 #Author-kantoku
 #Description-import Tsm files
 

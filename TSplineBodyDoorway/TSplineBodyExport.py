@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyExport Ver0.0.5
+#FusionAPI_python TSplineBodyExport
 #Author-kantoku
 #Description-export Tsm files
 
@@ -23,7 +23,7 @@ class TSplineBodyExport(Fusion360CommandBase):
             ao = AppObjects()
             path :str  = self.select_Folder(ao.ui)
             if len(path) < 1: return
-            path = path.replace('/','\\')#MACは上手くいかんかも…
+            path = path.replace('/', os.sep)
 
             tbs = self._tBodies.getBodies(onChecks)
             errLst :list() = []

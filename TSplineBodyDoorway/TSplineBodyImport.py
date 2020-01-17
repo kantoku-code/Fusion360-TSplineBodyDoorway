@@ -1,4 +1,4 @@
-#FusionAPI_python TSplineBodyImport Ver0.0.3
+#FusionAPI_python TSplineBodyImport
 #Author-kantoku
 #Description-import Tsm files
 
