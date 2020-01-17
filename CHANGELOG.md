@@ -1,5 +1,8 @@
 # Change of Fusion360_TSplineBody_Doorway
 
+## 0.0.6 -export only
++ Bug fix on path delimiter.
+
 ## 0.0.5 -export only
 + Bug fix on export table display.
 
