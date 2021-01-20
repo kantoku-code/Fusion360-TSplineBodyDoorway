@@ -1,5 +1,8 @@
 # Change of Fusion360_TSplineBody_Doorway
 
+## 0.0.7
++ Fixed a startup error during "Run on Startup". (Fusion360Ver2.0.9636)
+
 ## 0.0.6 -export only
 + Bug fix on path delimiter.
 

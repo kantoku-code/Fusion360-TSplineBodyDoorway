@@ -65,8 +65,8 @@ class LangMsg(Fusion360CommandBase):
     _msgDict = None
 
     def __init__(self):
-        ao = AppObjects()
-        lang = ao.app.preferences.generalPreferences.userLanguage
+        app = adsk.core.Application.get()
+        lang = app.preferences.generalPreferences.userLanguage
     
         langs = adsk.core.UserLanguages
         if lang == langs.JapaneseLanguage:
